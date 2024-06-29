@@ -45,11 +45,7 @@ class HBNBCommand(cmd.Cmd):
 
         # scan for general formating - i.e '.', '(', ')'
         if not ('.' in line and '(' in line and ')' in line):
-            if not (' ' in line):
-                return line
-            else:
-                _args = line.split()
-                class_name = _args[0]
+            return line
 
         try:  # parse line left to right
             pline = line[:]  # parsed line
@@ -77,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] == '{' and pline[-1] == '}'\
+                    if pline[0] is '{' and pline[-1] is'}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -89,7 +85,6 @@ class HBNBCommand(cmd.Cmd):
             pass
         finally:
             return line
-
     def postcmd(self, stop, line):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
@@ -122,18 +117,20 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        arg_list = args.partition(" ")
+        if arg_list[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+        new_instance = HBNBCommand.classes[arg_list[0]]()
+        # set key=values
+        if len(arg_list) > 1:
+            for arg in arg_list[1:]:
+                param = arg.partition("=")
+                key = param[0]
+                
         storage.save()
         print(new_instance.id)
         storage.save()
-
-    def help_create(self):
-        """ Help information for the create method """
-        print("Creates a class of any type")
-        print("[Usage]: create <className>\n")
 
     def do_show(self, args):
         """ Method to show an individual object """
