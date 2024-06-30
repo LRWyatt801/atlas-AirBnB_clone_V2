@@ -132,12 +132,28 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
         # Class name with parameters
         else:
+            new_dict = {}
             for arg in arg_list[1:]:
-                arg_dict = arg.split('=')
-                key = arg_dict[0]
-                value = arg_dict[1]
-                print(key)
-                print(value)
+                if "=" in arg:
+                    key_value_pair = arg.split("=", 1)
+                    key = key_value_pair[0]
+                    value = key_value_pair[1]
+                    # check if value is string
+                    if value[0] == value[-1] == '"':
+                        value = value.strip('"').replace('_', ' ')
+                    # if value is int or float
+                    else:
+                        try:
+                            value = int(value)
+                        except:
+                            try:
+                                value = float(value)
+                            except:
+                                continue
+                    new_dict[key] = value
+            new_instance = HBNBCommand.classes[arg_list[0]](**new_dict)
+            storage.save()
+            print(new_instance.id)
 
     def do_show(self, args):
         """ Method to show an individual object """
