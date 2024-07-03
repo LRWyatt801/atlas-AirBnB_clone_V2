@@ -28,6 +28,7 @@ class TestConsoleDBStorage(unittest.TestCase):
         else:
             self.fail("User not found or email incorrect")
 
+
 class TestBaseModelDBStorage(unittest.TestCase):
     """Tests BaseModel interaction with DBStorage"""
 
@@ -42,6 +43,7 @@ class TestBaseModelDBStorage(unittest.TestCase):
         DBStorage.reload()
         objs = DBStorage.all(BaseModel)
         self.assertIn(self.model.id, objs)
+
 
 class TestModelsDBStorage(unittest.TestCase):
     """Tests various models with DBStorage"""
@@ -63,6 +65,7 @@ class TestModelsDBStorage(unittest.TestCase):
         self.assertIn(self.user.id, all_objs)
         self.assertIn(self.place.id, all_objs)
         self.assertIn(self.state.id, all_objs)
+
 
 class TestDBStorage(unittest.TestCase):
     """Tests DBStorage functionalities"""
