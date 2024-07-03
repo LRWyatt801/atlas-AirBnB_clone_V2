@@ -131,8 +131,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args_list) > 1:
             for arg in args_list[1:]:
                 key, value = arg.split('=')
-                key = key.replace('_', ' ')
-                # Replace underscores with spaces in key names
+                value = value.replace('_', ' ')  # Replace underscores with spaces in values
                 try:
                     # Try to convert value to float first,
                     # then int, if not, keep as string
@@ -226,21 +225,18 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
-        print_list = []
-
-        if args:
-            args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-                return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+        args_list = shlex.split(args)
+        obj_list = []
+        if len(args_list) == 0:
+            obj_dict = storage.all()
+        elif args_list[0] in HBNBCommand.classes:
+            obj_dict = storage.all(HBNBCommand.classes[args_list[0]])
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
-
-        print(print_list)
+            print("** class doesn't exist **")
+            return False
+        for key in obj_dict:
+            obj_list.append(str(obj_dict[key]))
+        print(obj_list)
 
     def help_all(self):
         """ Help information for the all command """
