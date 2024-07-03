@@ -10,14 +10,14 @@ from sqlalchemy.ext.declarative import declarative_base
 
 time = "%Y-%m-%dT%H:%M%S.%f"
 
-if models.storage_t == "db":
+if models.HBNB_TYPE_STORAGE == "db":
     Base = declarative_base()
 else:
     Base = object
 
 class BaseModel:
     """A base class for all hbnb models"""
-    if models.storage_t == "db":
+    if models.HBNB_TYPE_STORAGE == "db":
         id = Column(String(60), primary_key=True)
         created_at = Column(DateTime, default=datetime.utcnow)
         updated_at = Column(DateTime, default=datetime.utcnow)
