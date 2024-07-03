@@ -131,7 +131,8 @@ class HBNBCommand(cmd.Cmd):
         if len(args_list) > 1:
             for arg in args_list[1:]:
                 key, value = arg.split('=')
-                value = value.replace('_', ' ')  # Replace underscores with spaces in values
+                # Replace underscores with spaces in values
+                value = value.replace('_', ' ')
                 try:
                     # Try to convert value to float first,
                     # then int, if not, keep as string
