@@ -13,7 +13,8 @@ class FileStorage:
         if cls is None:
             return FileStorage.__objects
         else:
-            return {k: v for k, v in FileStorage.__objects.items() if type(v).__name__ == cls.__name__}
+            return {k: v for k, v in FileStorage.__objects.items() if type(v)
+                    .__name__ == cls.__name__}
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
@@ -31,7 +32,8 @@ class FileStorage:
             json.dump(temp, f)
 
     def delete(self, obj=None):
-        """Delete obj from __objects if it’s inside - if obj is equal to None, the method should not do anything"""
+        """Delete obj from __objects if it’s inside - if obj is equal to None,
+           the method should not do anything"""
         try:
             del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
         except (AttributeError, KeyError):
@@ -57,7 +59,7 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
 
