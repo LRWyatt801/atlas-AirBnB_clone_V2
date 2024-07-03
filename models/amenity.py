@@ -5,6 +5,7 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from models import HBNB_TYPE_STORAGE
 
+
 class Amenity(BaseModel, Base):
     """Amenity class to store amenity information"""
     # for database storage

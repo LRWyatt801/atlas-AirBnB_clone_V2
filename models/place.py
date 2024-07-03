@@ -35,10 +35,11 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer, nullable=False, default=0)
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
-        reviews = relationship("Review", backref="place", cascade="all, delete")
+        reviews = relationship("Review", backref="place",
+                               cascade="all, delete")
         amenities = relationship("Amenity", secondary="place_amenity",
-                                backref="place_amenities",
-                                viewonly=False)
+                                 backref="place_amenities",
+                                 viewonly=False)
     # for json file storage
     else:
 
@@ -76,7 +77,7 @@ class Place(BaseModel, Base):
                 if amenity.place_id == self.id:
                     amenity_list.append(amenity)
             return amenity_list
-        
+
         def __init__(self, *args, **kwargs):
             """initializes Place"""
             super().__init__(*args, **kwargs)

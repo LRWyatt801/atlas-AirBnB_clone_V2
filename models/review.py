@@ -5,6 +5,7 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 from models import HBNB_TYPE_STORAGE
 
+
 class Review(BaseModel, Base):
     """ Review class to store review information """
     # for database storage
@@ -18,6 +19,6 @@ class Review(BaseModel, Base):
         place_id = ""
         user_id = ""
         text = ""
-        
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

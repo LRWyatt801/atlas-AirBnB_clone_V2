@@ -7,6 +7,7 @@ from sqlalchemy.orm import relationship
 from models.city import City
 from os import getenv
 
+
 class State(BaseModel, Base):
     """ State class """
     # for database storage
@@ -31,4 +32,3 @@ class State(BaseModel, Base):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-

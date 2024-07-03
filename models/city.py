@@ -5,6 +5,7 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 from models import HBNB_TYPE_STORAGE
 
+
 class City(BaseModel, Base):
     """ The city class, contains state ID and name """
     # for database storage
@@ -17,6 +18,6 @@ class City(BaseModel, Base):
     else:
         state_id = ""
         name = ""
-        
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
